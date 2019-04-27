@@ -31,12 +31,18 @@ RUN	mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backu
 	yum install mingw32-zlib -y  && \ 
 	yum install mingw32-zlib-static  -y  && \  
 	yum install mingw32-winpthreads  -y  && \ 
-	yum install mingw32-winpthreads-static  -y
+	yum install mingw32-winpthreads-static  -y && \ 
+	cd avian && \ 
+	export JAVA_HOME=/usr/lib/jvm/java-1.8.0 && \ 
+	make platform=windows arch=i386 && \ 
+	make platform=windows arch=x86_64
 	
 COPY win32.sh /root/
 COPY win64.sh /root/
-		
+COPY jre.sh /root/	
+
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
+
 
 ENTRYPOINT ["/bin/bash"]
  

@@ -3,7 +3,8 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0
  
 
 cd avian
-make platform=windows arch=i386
+
+#make platform=windows arch=i386
 rm -rf /root/share/jre_win32
 mkdir -p /root/share/jre_win32/bin/
 mkdir -p /root/share/jre_win32/lib/
@@ -11,7 +12,7 @@ mkdir -p /root/share/jre_win32/lib/
 cp ./build/windows-i386/avian.exe  /root/share/jre_win32/bin/java.exe
 cp ./build/windows-i386/classpath.jar /root/share/jre_win32/lib/rt.jar
 
-make platform=windows arch=x86_64
+#make platform=windows arch=x86_64
 rm -rf /root/share/jre_win64
 
 mkdir -p /root/share/jre_win64/bin/

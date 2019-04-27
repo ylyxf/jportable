@@ -10,13 +10,15 @@ export extlib=win64
 export ming32prefix=x86_64
 
 cd avian
-make platform=${platform} arch=${arch}
+#make platform=${platform} arch=${arch}
 
 rm -rf app
 cp -r ../app app
 cd app
 
 cp -r /root/share/* ./
+
+${ming32prefix}-w64-mingw32-windres icon.rc -O coff -o icon.res
 
 ${ming32prefix}-w64-mingw32-ar x ../build/${platform}-${arch}/libavian.a
 ../build/${platform}-${arch}/binaryToObject/binaryToObject boot.jar boot-jar.o _binary_boot_jar_start _binary_boot_jar_end ${platform} ${arch}
@@ -25,6 +27,6 @@ ${ming32prefix}-w64-mingw32-g++ -fno-exceptions -fno-rtti -I"$JAVA_HOME/include"
 
 ${ming32prefix}-w64-mingw32-dlltool -z app.def *.o
 ${ming32prefix}-w64-mingw32-dlltool -d app.def -e app.exp
-${ming32prefix}-w64-mingw32-gcc app.exp *.o -L../../${extlib}/lib -lmingwthrd -lm -lz -lws2_32   -liphlpapi -mwindows  -o app.exe
+${ming32prefix}-w64-mingw32-gcc app.exp *.o -L../../${extlib}/lib -lmingwthrd -lm -lz -lws2_32   -liphlpapi -mwindows  -o app.exe icon.res
 ${ming32prefix}-w64-mingw32-strip --strip-all app.exe
 cp -f app.exe /root/share/app_${arch}.exe
